@@ -1,4 +1,4 @@
-import {} from 'dotenv/config'
+require('dotenv').config();
 
 const envs = {
   development: {
@@ -24,4 +24,4 @@ const envs = {
   }
 }
 
-export default envs
+module.exports = envs;
