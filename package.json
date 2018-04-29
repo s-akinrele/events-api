@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --exec babel-node",
-    "test": "NODE_ENV=test mocha --compilers js:babel-register server/spec/**/*.spec.js -w",
-    "seed": "babel-node server/seeders/index.js"
+    "migration":"NODE_ENV=test sequelize db:migrate",
+    "seed": "NODE_ENV=test babel-node server/seeders/index.js",
+    "test": "NODE_ENV=test mocha --compilers js:babel-register server/spec/**/*.spec.js"
   },
   "author": "Simisola Akinrele",
   "license": "ISC",
