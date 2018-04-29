@@ -3,7 +3,7 @@ import Location from '../controllers/locationController'
 const location = new Location()
 
 const locationRoute = router => {
-  router.route('/locations')
+  router.route('/api/v1/locations')
   .post(location.createLocation)
 }
 
