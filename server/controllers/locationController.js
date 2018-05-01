@@ -66,7 +66,7 @@ export default class Location {
       }
 
       const paginationResult = pagination(paramSanitizer, locations.count);
-      return res.status(200).send({ paginationMetaData: paginationResult, locations: locations.rows });
+      return res.status(200).send({ paginationMetaData: paginationResult, result: locations.rows });
     })
     .catch(err => {
       return res.status(400).send(err)

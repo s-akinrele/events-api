@@ -1,16 +1,20 @@
 import sequelize from 'sequelize'
 
 export const paginationSanitizer = (limit, offset, order) => {
-  if (limit && (isNaN(Number(limit)) || limit < 0)) {
-      limit = 10
+  if (limit) {
+    if (isNaN(Number(limit)) || limit < 0) {
+      limit = 10;
+    }
   } else {
-    limit = limit
+    limit = 10;
   }
 
-  if (offset && (isNaN(Number(offset)) || offset < 0)) {
-      offset = 0
+  if (offset) {
+    if (isNaN(Number(offset)) || offset < 0) {
+      offset = 0;
+    }
   } else {
-    offset = offset
+    offset = 0;
   }
 
   if (order && order.toLowerCase() === 'desc') {
