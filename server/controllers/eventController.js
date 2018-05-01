@@ -38,7 +38,7 @@ export default class Event {
       }
 
       if (req.body.locationId) {
-        db.Location.findOne({
+        return db.Location.findOne({
           where: {id: req.body.locationId}
         })
         .then((loc) => {
@@ -46,7 +46,7 @@ export default class Event {
             return res.status(400).send({message: 'Location does not exist'})
           }
 
-          event.update({
+          return event.update({
             name: req.body.name || event.name,
             time: req.body.time || event.time,
             locationId: req.body.locationId || event.locationId

@@ -33,5 +33,6 @@ db.Location.sync({force: true})
   )
     .then(() => {
       console.log('finished populating locations')
+      process.exit(0)
     })
   })

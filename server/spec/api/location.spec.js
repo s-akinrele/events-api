@@ -18,7 +18,7 @@ describe('Location API:', () => {
       .end((error, response) => {
         expect(response.body.message).to.equal('successfully created')
         expect(response.status).to.equal(201)
-        done();
+        done()
       })
     })
 
@@ -32,7 +32,7 @@ describe('Location API:', () => {
       .end((error, response) => {
         expect(response.body.message).to.equal('unable to save location')
         expect(response.status).to.equal(400)
-        done();
+        done()
       })
     })
 
@@ -47,7 +47,7 @@ describe('Location API:', () => {
       .end((error, response) => {
         expect(response.body.message).to.equal('successfully updated')
         expect(response.status).to.equal(200)
-        done();
+        done()
       })
     })
   })

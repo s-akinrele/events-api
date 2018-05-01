@@ -1,9 +1,24 @@
 import supertest from 'supertest'
 import {expect} from 'chai'
 import app from '../../../index'
-import '../../models/index'
+import db from '../../models/index'
 
 const request = supertest.agent(app);
+
+let eventId;
+before(done => {
+  db.Event.destroy({where: {}})
+    .then(() =>
+      db.Event.create({
+        name: 'Shade\'s Pool party',
+        time: '2018-05-29T17:11:30.127Z',
+        locationId: 1
+      })
+      .then((evt) => {
+        eventId = evt.id
+        done()
+      }))
+})
 
 describe('Event API:', () => {
   describe('Create an Event', () => {
@@ -18,7 +33,7 @@ describe('Event API:', () => {
       .end((error, response) => {
         expect(response.body.message).to.equal('created successfully')
         expect(response.status).to.equal(201)
-        done();
+        done()
       })
     })
 
@@ -32,21 +47,21 @@ describe('Event API:', () => {
       .end((error, response) => {
         expect(response.body.message).to.equal('unable to save event')
         expect(response.status).to.equal(400)
-        done();
+        done()
       })
     })
 
     it('should update event', done => {
       request
-      .put('/api/v1/events/1')
+      .put(`/api/v1/events/${eventId}`)
       .send({
-        name: "Eat drink lagos",
+        name: "Eat drink Lagos",
         locationId: 1
       })
       .end((error, response) => {
         expect(response.body.message).to.equal('event updated')
         expect(response.status).to.equal(200)
-        done();
+        done()
       })
     })
   })

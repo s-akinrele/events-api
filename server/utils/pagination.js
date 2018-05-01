@@ -4,13 +4,13 @@ export const paginationSanitizer = (limit, offset, order) => {
   if (limit && (isNaN(Number(limit)) || limit < 0)) {
       limit = 10
   } else {
-    limit = 10
+    limit = limit
   }
 
   if (offset && (isNaN(Number(offset)) || offset < 0)) {
       offset = 0
   } else {
-    offset = 0
+    offset = offset
   }
 
   if (order && order.toLowerCase() === 'desc') {
