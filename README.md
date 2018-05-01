@@ -183,6 +183,7 @@ EVENTS
 #### Mock Response
   - Body `(application/json)`
 
+ ```
 {
   "message": "Event",
   "event": {
@@ -194,7 +195,7 @@ EVENTS
     "locationId": 2
   }
 }
-
+```
 ## Get all Events
 To fetch all events
 #### Request 
