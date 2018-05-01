@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
   var Location = sequelize.define('Location', {
     name: {
       type:DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     address: DataTypes.STRING,
     capacity: {
@@ -14,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Location.associate = function(models) {
     Location.hasMany(models.Event, {
+      as: 'events',
       foreignKey: 'locationId',
       onDelete: 'CASCADE'
     });

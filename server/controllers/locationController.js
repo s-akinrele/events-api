@@ -1,4 +1,5 @@
 import db from '../models'
+import {paginationSanitizer, pagination} from '../utils/pagination'
 
 export default class Location {
   createLocation(req, res) {
@@ -51,18 +52,21 @@ export default class Location {
       })
     })
     .catch((err) => {
-      return res.status(500).send(err);
+      return res.status(500).send(err)
     })
   }
 
   findAllLocations(req, res) {
-    db.Location.findAll()
+    const paramSanitizer = paginationSanitizer(req.query.limit, req.query.offset, req.query.order)
+
+    db.Location.findAndCountAll(paramSanitizer)
     .then(locations => {
       if (locations.length === 0) {
         return res.status(200).send('No locations recorded')
       }
 
-      return res.status(200).send({message: 'All locations', locations})
+      const paginationResult = pagination(paramSanitizer, locations.count);
+      return res.status(200).send({ paginationMetaData: paginationResult, locations: locations.rows });
     })
     .catch(err => {
       return res.status(400).send(err)
@@ -71,7 +75,12 @@ export default class Location {
 
   findLocation(req, res) {
     db.Location.findOne({
-      where: {id: req.params.id}
+      where: {id: req.params.id},
+      include: [{
+        model: db.Event,
+        as: 'events',
+        where: {locationId: req.params.id}
+      }]
     })
     .then(location => {
       if (!location) {
@@ -81,7 +90,7 @@ export default class Location {
       return res.status(200).send({message: 'view location', location})
     })
     .catch(error => {
-      return res.status(400).send(err)
+      return res.status(400).send(error)
     })
   }
 
