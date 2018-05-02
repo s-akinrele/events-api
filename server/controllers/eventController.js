@@ -116,4 +116,24 @@ export default class Event {
       return res.status(400).send(err)
     })
   }
+
+  searchEvent(req, res) {
+    const Op = db.Sequelize.Op
+    db.Event.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${req.query.q}%`
+        }
+      }
+    })
+    .then(events => {
+      if(!events) {
+        return res.send(404).send({message: 'No event matching this query'})
+      }
+      res.status(200).send(events)
+    })
+    .catch(err => {
+      res.status(400).send(err.message)
+    })
+  }
 }

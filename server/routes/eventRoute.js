@@ -7,6 +7,9 @@ const eventRoute = router => {
     .get(event.findAllEvents)
     .post(event.createEvent)
 
+  router.route('/api/v1/events/search')
+    .get(event.searchEvent)
+
   router.route('/api/v1/events/:id')
     .get(event.findEvent)
     .put(event.updateEvent)
